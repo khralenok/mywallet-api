@@ -1,7 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"github.com/khralenok/mywallet-api/database"
+	"github.com/khralenok/mywallet-api/handlers"
+)
 
 func main() {
-	fmt.Println("Welcome to mywallet api")
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	if err := database.Connect(); err != nil {
+		log.Fatal("Database connection failed:", err)
+	}
+
+	defer database.DB.Close()
+
+	router := gin.Default()
+
+	router.GET("/users", handlers.GetUsers)
+	router.GET("/transactions", handlers.GetTransactions)
+	router.GET("/balances", handlers.GetBalances)
+
+	router.POST("/users", handlers.CreateUser)
+
+	router.Run(":8080")
 }
