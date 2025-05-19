@@ -26,7 +26,8 @@ func main() {
 	router.GET("/transactions", handlers.GetTransactions)
 	router.GET("/balances", handlers.GetBalances)
 
-	router.POST("/users", handlers.CreateUser)
+	router.POST("/signin", handlers.CreateUser)
+	router.POST("/login", handlers.LoginUser)
 
 	router.Run(":8080")
 }
