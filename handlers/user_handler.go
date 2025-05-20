@@ -9,27 +9,20 @@ import (
 	"github.com/khralenok/mywallet-api/utilities"
 )
 
-func GetUsers(context *gin.Context) {
-	rows, err := database.DB.Query("SELECT id, username, password, created_at FROM users")
+func GetProfile(context *gin.Context) {
+	userID := context.MustGet("userID").(int)
+
+	var user models.User
+
+	query := "SELECT * FROM users WHERE id=$1"
+	err := database.DB.QueryRow(query, userID).Scan(&user.ID, &user.Username, &user.Password, &user.CreatedAt)
+
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	defer rows.Close()
-
-	var users []models.User
-
-	for rows.Next() {
-		var user models.User
-		if err := rows.Scan(&user.ID, &user.Username, &user.Password, &user.CreatedAt); err != nil {
-			context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		users = append(users, user)
-	}
-
-	context.JSON(http.StatusOK, users)
+	context.JSON(http.StatusOK, gin.H{"data": user})
 }
 
 func CreateUser(context *gin.Context) {
@@ -77,7 +70,14 @@ func LoginUser(context *gin.Context) {
 		context.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Credentials"})
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "Success"})
+	token, err := utilities.GenerateJWT(user.ID)
+
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": "Token generation failed"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "Success", "token": token})
 
 }
 

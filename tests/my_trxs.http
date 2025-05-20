@@ -1,0 +1,2 @@
+GET http://localhost:8080/my_trxs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc4MDEyNzcsInVzZXJfaWQiOjEwfQ.m61NJ1c--bhmC5uAkOM4uXQK4XBzTxTTOfHsQoh6Mvs
