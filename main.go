@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -28,11 +27,7 @@ func main() {
 
 	router.GET("/profile", utilities.AuthMiddleware(), handlers.GetProfile)
 	router.GET("/my_trxs", utilities.AuthMiddleware(), handlers.GetTransactionByUserID)
-
-	router.GET("/protected", utilities.AuthMiddleware(), func(context *gin.Context) {
-		userID := context.MustGet("userID").(int)
-		context.JSON(http.StatusOK, gin.H{"message": "Welcome!", "user_id": userID})
-	}) // For testing JWT. Should be deleted on release
+	router.GET("/snapshot", utilities.AuthMiddleware(), handlers.TakeBalanceSnapshot)
 
 	router.POST("/signin", handlers.CreateUser)
 	router.POST("/login", handlers.LoginUser)
