@@ -1,5 +1,5 @@
 POST http://localhost:8080/add_income
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NjkxMzMsInVzZXJfaWQiOjEwfQ.8JJAMAzHgG0V4X8eYyJd39W7ze0hPI5EVgKFG5CMqHU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NzAzMDMsInVzZXJfaWQiOjEwfQ.02QGsgRxJVSev0lC63CnAR6nn_agHZU9s7quTgtCO6w
 
 {
     "amount_usd": 2000.00,

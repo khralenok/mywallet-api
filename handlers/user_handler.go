@@ -12,17 +12,32 @@ import (
 func GetProfile(context *gin.Context) {
 	userID := context.MustGet("userID").(int)
 
-	var user models.User
+	var rawUser models.User
+	var balance models.Balance
+	var user models.UserOutput
 
 	query := "SELECT * FROM users WHERE id=$1"
-	err := database.DB.QueryRow(query, userID).Scan(&user.ID, &user.Username, &user.Password, &user.CreatedAt)
+	err := database.DB.QueryRow(query, userID).Scan(&rawUser.ID, &rawUser.Username, &rawUser.Password, &rawUser.CreatedAt)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"data": user})
+	query = "SELECT * FROM balances WHERE user_id=$1"
+	err = database.DB.QueryRow(query, userID).Scan(&balance.UserID, &balance.Balance, &balance.SnapshotDate)
+
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	user.ID = rawUser.ID
+	user.Username = rawUser.Username
+	user.BalanceUSD = utilities.ConvertToUSD(balance.Balance)
+	user.SnapshotDate = balance.SnapshotDate
+
+	context.JSON(http.StatusOK, user)
 }
 
 func CreateUser(context *gin.Context) {
