@@ -7,11 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/khralenok/mywallet-api/database"
 	"github.com/khralenok/mywallet-api/models"
+	"github.com/khralenok/mywallet-api/utilities"
 )
 
 // user_id | balance | snapshot_date
 
-func GetMyBalance(context *gin.Context) {
+func GetBalance(context *gin.Context) {
 	userID := context.MustGet("userID").(int)
 
 	var balance models.Balance
@@ -24,7 +25,7 @@ func GetMyBalance(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusOK, balance)
+	context.JSON(http.StatusOK, gin.H{"balance_usd": utilities.ConvertToUSD(balance.Balance), "snapshot_date": balance.SnapshotDate})
 }
 
 func TakeBalanceSnapshot(context *gin.Context) {

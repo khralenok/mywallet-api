@@ -24,8 +24,8 @@ func main() {
 	router := gin.Default()
 
 	router.GET("/profile", utilities.AuthMiddleware(), handlers.GetProfile)
-	router.GET("/balance", utilities.AuthMiddleware(), handlers.GetMyBalance)
-	router.GET("/my_trxs", utilities.AuthMiddleware(), handlers.GetTransactionByUserID)
+	router.GET("/balance", utilities.AuthMiddleware(), handlers.GetBalance)
+	router.GET("/transactions", utilities.AuthMiddleware(), handlers.GetTransactions)
 	router.GET("/snapshot", utilities.AuthMiddleware(), handlers.TakeBalanceSnapshot)
 
 	router.POST("/signin", handlers.CreateUser)
