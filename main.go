@@ -23,15 +23,15 @@ func main() {
 
 	router := gin.Default()
 
-	router.GET("/balances", handlers.GetBalances) // For testing. Should be deleted on release
-
 	router.GET("/profile", utilities.AuthMiddleware(), handlers.GetProfile)
+	router.GET("/balance", utilities.AuthMiddleware(), handlers.GetMyBalance)
 	router.GET("/my_trxs", utilities.AuthMiddleware(), handlers.GetTransactionByUserID)
 	router.GET("/snapshot", utilities.AuthMiddleware(), handlers.TakeBalanceSnapshot)
 
 	router.POST("/signin", handlers.CreateUser)
 	router.POST("/login", handlers.LoginUser)
-	router.POST("/add_trx", utilities.AuthMiddleware(), handlers.CreateTransaction)
+	router.POST("/add_income", utilities.AuthMiddleware(), handlers.AddIncome)
+	router.POST("/add_expense", utilities.AuthMiddleware(), handlers.AddExpense)
 
 	router.Run(":8080")
 }

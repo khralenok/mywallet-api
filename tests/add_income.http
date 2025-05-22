@@ -1,0 +1,7 @@
+POST http://localhost:8080/add_income
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NjU3MDUsInVzZXJfaWQiOjEwfQ.Y0l80NPT-Q1cth2hp-4sWeyVrGtp3EziEuAUGsOvpos
+
+{
+    "amount": 2100,
+    "trx_category": "Test category"
+}

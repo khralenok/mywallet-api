@@ -11,27 +11,20 @@ import (
 
 // user_id | balance | snapshot_date
 
-func GetBalances(context *gin.Context) {
-	rows, err := database.DB.Query("SELECT user_id, balance, snapshot_date FROM balances")
+func GetMyBalance(context *gin.Context) {
+	userID := context.MustGet("userID").(int)
+
+	var balance models.Balance
+
+	query := "SELECT * FROM balances WHERE user_id=$1"
+	err := database.DB.QueryRow(query, userID).Scan(&balance.UserID, &balance.Balance, &balance.SnapshotDate)
+
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	defer rows.Close()
-
-	var balances []models.Balance
-
-	for rows.Next() {
-		var balance models.Balance
-		if err := rows.Scan(&balance.UserID, &balance.Balance, &balance.SnapshotDate); err != nil {
-			context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		balances = append(balances, balance)
-	}
-
-	context.JSON(http.StatusOK, balances)
+	context.JSON(http.StatusOK, balance)
 }
 
 func TakeBalanceSnapshot(context *gin.Context) {
