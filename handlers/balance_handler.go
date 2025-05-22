@@ -10,8 +10,6 @@ import (
 	"github.com/khralenok/mywallet-api/utilities"
 )
 
-// user_id | balance | snapshot_date
-
 func GetBalance(context *gin.Context) {
 	userID := context.MustGet("userID").(int)
 
@@ -36,16 +34,10 @@ func TakeBalanceSnapshot(context *gin.Context) {
 
 	query := "SELECT * FROM balances WHERE user_id=$1"
 
-	row := database.DB.QueryRow(query, userID)
-
-	err := row.Scan(&newBalance.UserID, &newBalance.Balance, &newBalance.SnapshotDate)
+	err := database.DB.QueryRow(query, userID).Scan(&newBalance.UserID, &newBalance.Balance, &newBalance.SnapshotDate)
 
 	if err != nil {
-		newBalance = models.Balance{
-			UserID:       userID,
-			Balance:      0,
-			SnapshotDate: time.Date(1970, time.January, 1, 0, 0, 0, 0, time.UTC),
-		}
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 	}
 
 	query = "SELECT * FROM transactions WHERE user_id=$1 AND created_at>$2"
@@ -63,10 +55,15 @@ func TakeBalanceSnapshot(context *gin.Context) {
 
 	for rows.Next() {
 		var newTransaction models.Transaction
-		if err := rows.Scan(&newTransaction.ID, &newTransaction.UserID, &newTransaction.Amount, &newTransaction.Category, &newTransaction.Type, &newTransaction.CreatedAt); err != nil {
+		if err := rows.Scan(&newTransaction.ID, &newTransaction.UserID, &newTransaction.Amount, &newTransaction.Type, &newTransaction.Category, &newTransaction.CreatedAt); err != nil {
 			context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+
+		if newTransaction.Type == "expense" {
+			newTransaction.Amount *= -1
+		}
+
 		sumOfTransactions += newTransaction.Amount
 	}
 
@@ -83,4 +80,21 @@ func TakeBalanceSnapshot(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusOK, gin.H{"message": "Snapshot taken successfuly"})
+}
+
+func createNewBalance(userID int) error {
+	newBalance := models.Balance{
+		UserID:       userID,
+		Balance:      0,
+		SnapshotDate: time.Date(1970, time.January, 1, 0, 0, 0, 0, time.UTC),
+	}
+
+	query := "INSERT INTO balances (user_id, balance, snapshot_date) VALUES ($1, $2, $3)"
+	_, err := database.DB.Exec(query, newBalance.UserID, newBalance.Balance, newBalance.SnapshotDate)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

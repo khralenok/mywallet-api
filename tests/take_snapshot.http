@@ -1,2 +1,2 @@
 GET http://localhost:8080/snapshot
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc4ODk5NzgsInVzZXJfaWQiOjEwfQ.ZKTnkA0xkb8H81tcJp0lxm2nIlcemQG6Em0W-e47FVw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NzQ0MzMsInVzZXJfaWQiOjE1fQ.48BjCX6FFAOh304kzZ8ME8wwzsOK1XNZEPH_OCn0wmo

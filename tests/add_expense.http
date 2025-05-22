@@ -1,7 +1,7 @@
 POST http://localhost:8080/add_expense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NjkxMzMsInVzZXJfaWQiOjEwfQ.8JJAMAzHgG0V4X8eYyJd39W7ze0hPI5EVgKFG5CMqHU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NzQ0MzMsInVzZXJfaWQiOjE1fQ.48BjCX6FFAOh304kzZ8ME8wwzsOK1XNZEPH_OCn0wmo
 
 {
-    "amount_usd": 125.50,
+    "amount_usd": 55.45,
     "trx_category": "Products"
 }

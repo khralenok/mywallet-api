@@ -64,6 +64,11 @@ func CreateUser(context *gin.Context) {
 		return
 	}
 
+	if err := createNewBalance(newUser.ID); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to initialize balance", "message": err})
+		return
+	}
+
 	context.JSON(http.StatusCreated, newUser)
 }
 
