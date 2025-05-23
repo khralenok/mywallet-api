@@ -13,7 +13,6 @@ func GetProfile(context *gin.Context) {
 	userID := context.MustGet("userID").(int)
 
 	var rawUser models.User
-	var balance models.Balance
 	var user models.UserOutput
 
 	query := "SELECT * FROM users WHERE id=$1"
@@ -24,8 +23,7 @@ func GetProfile(context *gin.Context) {
 		return
 	}
 
-	query = "SELECT * FROM balances WHERE user_id=$1"
-	err = database.DB.QueryRow(query, userID).Scan(&balance.UserID, &balance.Balance, &balance.SnapshotDate)
+	curBalance, err := getCurBalance(rawUser.ID)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -34,8 +32,7 @@ func GetProfile(context *gin.Context) {
 
 	user.ID = rawUser.ID
 	user.Username = rawUser.Username
-	user.BalanceUSD = utilities.ConvertToUSD(balance.Balance)
-	user.SnapshotDate = balance.SnapshotDate
+	user.BalanceUSD = utilities.ConvertToUSD(curBalance)
 
 	context.JSON(http.StatusOK, user)
 }

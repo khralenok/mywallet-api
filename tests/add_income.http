@@ -1,7 +1,7 @@
 POST http://localhost:8080/add_income
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NzQ4MDcsInVzZXJfaWQiOjE2fQ.tHPgcLyRaiP8WD7pRDN1t6XuBptQge8V5gjIs6vpAx4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgwNjM0NzAsInVzZXJfaWQiOjE2fQ.4efUr307QBixdg0JN4cyyP2o8aV01nEibxW-1SnlM7U
 
 {
-    "amount_usd": 2000.00,
+    "amount_usd": 200.00,
     "trx_category": "Salary"
 }

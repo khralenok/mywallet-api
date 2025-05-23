@@ -84,11 +84,23 @@ func AddExpense(context *gin.Context) {
 
 	newTRX.UserID = userID
 	newTRX.Amount = utilities.ConvertToCents(newTransactionRequest.AmountUSD)
+
+	curBalance, err := getCurBalance(newTRX.UserID)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	if newTRX.Amount > curBalance {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "Not enough funds to make transaction"})
+		return
+	}
+
 	newTRX.Type = "expense"
 	newTRX.Category = newTransactionRequest.Category
 
 	query := "INSERT INTO transactions (user_id, amount, trx_type, trx_category) VALUES ($1, $2, $3, $4) RETURNING id, created_at"
-	err := database.DB.QueryRow(query, newTRX.UserID, newTRX.Amount, newTRX.Type, newTRX.Category).Scan(&newTRX.ID, &newTRX.CreatedAt)
+	err = database.DB.QueryRow(query, newTRX.UserID, newTRX.Amount, newTRX.Type, newTRX.Category).Scan(&newTRX.ID, &newTRX.CreatedAt)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to insert transaction"})

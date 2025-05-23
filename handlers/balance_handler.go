@@ -82,6 +82,46 @@ func TakeBalanceSnapshot(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"message": "Snapshot taken successfuly"})
 }
 
+func getCurBalance(userID int) (int, error) {
+	var curBalance int
+	var lastSnapshot models.Balance
+
+	query := "SELECT * FROM balances WHERE user_id=$1"
+
+	err := database.DB.QueryRow(query, userID).Scan(&lastSnapshot.UserID, &lastSnapshot.Balance, &lastSnapshot.SnapshotDate)
+
+	if err != nil {
+		return curBalance, err
+	}
+
+	query = "SELECT * FROM transactions WHERE user_id=$1 AND created_at>$2"
+
+	rows, err := database.DB.Query(query, lastSnapshot.UserID, lastSnapshot.SnapshotDate)
+
+	if err != nil {
+		return curBalance, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var newTRX models.Transaction
+		if err := rows.Scan(&newTRX.ID, &newTRX.UserID, &newTRX.Amount, &newTRX.Type, &newTRX.Category, &newTRX.CreatedAt); err != nil {
+			return curBalance, err
+		}
+
+		if newTRX.Type == "expense" {
+			newTRX.Amount *= -1
+		}
+
+		lastSnapshot.Balance += newTRX.Amount
+	}
+
+	curBalance = lastSnapshot.Balance
+
+	return curBalance, nil
+}
+
 func createNewBalance(userID int) error {
 	newBalance := models.Balance{
 		UserID:       userID,
