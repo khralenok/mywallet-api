@@ -1,8 +1,8 @@
-POST http://localhost:8080/add_income
+PUT http://localhost:8080/update_transaction/40
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgzMTc0NDAsInVzZXJfaWQiOjE2fQ.9l8TiUwIU2hz8Qz5cvQMjGRKJ1j3mDo9bOascR_-_YM
 
 {
-    "amount_usd": 100.00,
-    "trx_category": "Refund"
+    "amount_usd": 2000.00,
+    "trx_category": "Salary"
 }

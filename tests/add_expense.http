@@ -1,7 +1,8 @@
 POST http://localhost:8080/add_expense
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgwNjI5NTIsInVzZXJfaWQiOjE2fQ.ROfN2VYnFnITkBGeYv81jnCCmB9X4ZBXfCuNGTg0rVk
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgzMTc0NDAsInVzZXJfaWQiOjE2fQ.9l8TiUwIU2hz8Qz5cvQMjGRKJ1j3mDo9bOascR_-_YM
 
 {
-    "amount_usd": 100000,
-    "trx_category": "Products"
+    "amount_usd": 5000,
+    "trx_category": "Rent"
 }

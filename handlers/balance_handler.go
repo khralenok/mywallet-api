@@ -82,6 +82,49 @@ func TakeBalanceSnapshot(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{"message": "Snapshot taken successfuly"})
 }
 
+func fullRecalcBalance(userID int) error {
+	var newBalance models.Balance
+	currentTime := time.Now()
+
+	query := "SELECT * FROM transactions WHERE user_id=$1"
+
+	rows, err := database.DB.Query(query, userID)
+
+	if err != nil {
+		return err
+	}
+
+	defer rows.Close()
+
+	var sumOfTransactions int
+
+	for rows.Next() {
+		var newTransaction models.Transaction
+		if err := rows.Scan(&newTransaction.ID, &newTransaction.UserID, &newTransaction.Amount, &newTransaction.Type, &newTransaction.Category, &newTransaction.CreatedAt); err != nil {
+			return err
+		}
+
+		if newTransaction.Type == "expense" {
+			newTransaction.Amount *= -1
+		}
+
+		sumOfTransactions += newTransaction.Amount
+	}
+
+	newBalance.Balance += sumOfTransactions
+	newBalance.SnapshotDate = currentTime
+
+	query = "UPDATE balances SET balance=$1,snapshot_date=$2 WHERE user_id=$3"
+
+	_, err = database.DB.Exec(query, newBalance.Balance, newBalance.SnapshotDate, newBalance.UserID)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func getCurBalance(userID int) (int, error) {
 	var curBalance int
 	var lastSnapshot models.Balance

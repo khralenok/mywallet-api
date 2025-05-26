@@ -1,0 +1,2 @@
+GET http://localhost:8080/transactions/date?from_date=2025-05-23&to_date=2025-05-26
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgzMjE0MzUsInVzZXJfaWQiOjE2fQ.jhdSthowYbtw3NAdXoCExyn58VT0AH0k1X93w54YmmI

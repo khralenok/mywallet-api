@@ -1,2 +1,2 @@
 GET http://localhost:8080/balance
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc5NzQ0MzMsInVzZXJfaWQiOjE1fQ.48BjCX6FFAOh304kzZ8ME8wwzsOK1XNZEPH_OCn0wmo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgwNjM0NzAsInVzZXJfaWQiOjE2fQ.4efUr307QBixdg0JN4cyyP2o8aV01nEibxW-1SnlM7U
