@@ -1,8 +1,8 @@
 POST http://localhost:8080/add_income
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgzMTc0NDAsInVzZXJfaWQiOjE2fQ.9l8TiUwIU2hz8Qz5cvQMjGRKJ1j3mDo9bOascR_-_YM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0MDI4OTUsInVzZXJfaWQiOjE2fQ.OqDgvvkegVg1zY1w3VEqDAmcesDVvtD6lsZXIW5EVbI
 
 {
-    "amount_usd": 100.00,
+    "amount_usd": 224.00,
     "trx_category": "Refund"
 }

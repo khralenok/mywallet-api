@@ -41,5 +41,8 @@ func main() {
 	router.GET("/transactions", utilities.AuthMiddleware(), handlers.GetTransactions)
 	router.GET("/snapshot", utilities.AuthMiddleware(), handlers.TakeBalanceSnapshot)
 
+	//Reports
+	router.GET("/month_summary", utilities.AuthMiddleware(), handlers.GetMonthSummary)
+
 	router.Run(":8080")
 }
