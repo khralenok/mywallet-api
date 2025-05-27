@@ -1,2 +1,27 @@
-# mywallet-api - Personal Finance Tracker API
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur est nisl, aliquam in eros vel, sagittis lacinia nunc. Etiam in mi massa. Suspendisse sagittis ipsum ligula, sit amet efficitur dui pharetra eget. Suspendisse potenti. Sed viverra, tortor ut iaculis tincidunt, tortor ipsum volutpat mi, sed tincidunt urna purus sed metus. Nullam congue dui lacinia nibh placerat facilisis. Vestibulum laoreet, tellus sit amet imperdiet cursus, leo diam sagittis enim, a finibus erat odio a elit. Proin malesuada, elit eget pellentesque hendrerit, erat elit mollis justo, et vulputate lacus ipsum nec elit. Integer at dictum ante. Proin eget nunc feugiat, aliquet nunc a, interdum massa. Integer in euismod ligula. Proin lobortis aliquam aliquam.
+# MyWallet API 💸
+
+**MyWallet API** is personal finance tracker API, that allows users create their own wallets, record transactions and compose reports. 
+
+## Handlers
+
+### 1. **User Management**
+
+- `POST /signin` — Create a new user.
+- `POST /login` — Authenticate a user and return a JWT Token
+- `GET /profile` — Fetch user profile.
+
+### 2. Transaction **Management**
+
+- `POST /add_income` — Add a new income entry to user account.
+- `POST /add_expense` — Add a new expense entry to user account.
+- `GET /transactions` — List all user transactions
+- `GET /transactions/:date` — List all user transactions by date
+- `GET /transactions/:id` — View a specific user transaction entry.
+- `PUT /transactions/:id` — Update an transaction entry.
+- `DELETE /transactions/:id` — delete an transaction entry.
+
+### 3. **Reports**
+
+- `GET /summary?month=2025-04` — Return month income, expenses, and balance.
+
+## Installation

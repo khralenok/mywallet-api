@@ -26,22 +26,12 @@ func GetTransactions(context *gin.Context) {
 
 	for rows.Next() {
 		var rawTRX models.Transaction
-		var transaction models.TransactionOutput
 		if err := rows.Scan(&rawTRX.ID, &rawTRX.UserID, &rawTRX.Amount, &rawTRX.Type, &rawTRX.Category, &rawTRX.CreatedAt); err != nil {
 			context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
-		transaction.ID = rawTRX.ID
-		transaction.AmountUSD = utilities.ConvertToUSD(rawTRX.Amount)
-		if rawTRX.Type == "expense" {
-			transaction.AmountUSD *= -1
-		}
-
-		transaction.Category = rawTRX.Category
-		transaction.CreatedAt = rawTRX.CreatedAt
-
-		transactions = append(transactions, transaction)
+		transactions = append(transactions, prepareTrxToOutput(rawTRX))
 	}
 
 	context.JSON(http.StatusOK, transactions)
@@ -52,7 +42,6 @@ func GetTransactionById(context *gin.Context) {
 	trxID := context.Param("id")
 
 	var rawTRX models.Transaction
-	var trx models.TransactionOutput
 
 	query := "SELECT * FROM transactions WHERE id=$1"
 
@@ -63,16 +52,7 @@ func GetTransactionById(context *gin.Context) {
 		return
 	}
 
-	trx.ID = rawTRX.ID
-	trx.AmountUSD = utilities.ConvertToUSD(rawTRX.Amount)
-	if rawTRX.Type == "expense" {
-		trx.AmountUSD *= -1
-	}
-
-	trx.Category = rawTRX.Category
-	trx.CreatedAt = rawTRX.CreatedAt
-
-	context.JSON(http.StatusOK, trx)
+	context.JSON(http.StatusOK, prepareTrxToOutput(rawTRX))
 }
 
 func GetTransactionByDate(context *gin.Context) {
@@ -105,22 +85,12 @@ func GetTransactionByDate(context *gin.Context) {
 
 	for rows.Next() {
 		var rawTRX models.Transaction
-		var transaction models.TransactionOutput
 		if err := rows.Scan(&rawTRX.ID, &rawTRX.UserID, &rawTRX.Amount, &rawTRX.Type, &rawTRX.Category, &rawTRX.CreatedAt); err != nil {
 			context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
-		transaction.ID = rawTRX.ID
-		transaction.AmountUSD = utilities.ConvertToUSD(rawTRX.Amount)
-		if rawTRX.Type == "expense" {
-			transaction.AmountUSD *= -1
-		}
-
-		transaction.Category = rawTRX.Category
-		transaction.CreatedAt = rawTRX.CreatedAt
-
-		transactions = append(transactions, transaction)
+		transactions = append(transactions, prepareTrxToOutput(rawTRX))
 	}
 
 	context.JSON(http.StatusOK, transactions)
@@ -163,10 +133,15 @@ func AddExpense(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 	}
 
+	if newTransactionRequest.AmountUSD < 0 {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "Amount must be positive"})
+	}
+
 	newTRX.UserID = userID
 	newTRX.Amount = utilities.ConvertToCents(newTransactionRequest.AmountUSD)
 
-	curBalance, err := getCurBalance(newTRX.UserID)
+	curBalance, err := models.GetBalance(newTRX.UserID)
+
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -204,7 +179,7 @@ func DeleteTransaction(context *gin.Context) {
 		return
 	}
 
-	fullRecalcBalance(userID)
+	models.RecalcBalance(userID)
 
 	context.JSON(http.StatusOK, gin.H{"message": "Transaction deleted successfully"})
 }
@@ -227,7 +202,22 @@ func UpdateTransaction(context *gin.Context) {
 		context.JSON(http.StatusNotModified, gin.H{"error": err.Error()})
 	}
 
-	fullRecalcBalance(userID)
+	models.RecalcBalance(userID)
 
 	context.JSON(http.StatusOK, gin.H{"message": "Transaction updated successfully"})
+}
+
+func prepareTrxToOutput(rawTRX models.Transaction) models.TransactionOutput {
+	var trx models.TransactionOutput
+
+	trx.ID = rawTRX.ID
+	trx.AmountUSD = utilities.ConvertToUSD(rawTRX.Amount)
+	if rawTRX.Type == "expense" {
+		trx.AmountUSD *= -1
+	}
+
+	trx.Category = rawTRX.Category
+	trx.CreatedAt = rawTRX.CreatedAt
+
+	return trx
 }

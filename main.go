@@ -31,15 +31,11 @@ func main() {
 	//Transaction management
 	router.POST("/add_income", utilities.AuthMiddleware(), handlers.AddIncome)
 	router.POST("/add_expense", utilities.AuthMiddleware(), handlers.AddExpense)
+	router.GET("/transactions", utilities.AuthMiddleware(), handlers.GetTransactions)
 	router.GET("/transactions/:id", utilities.AuthMiddleware(), handlers.GetTransactionById)
 	router.GET("/transactions/date", utilities.AuthMiddleware(), handlers.GetTransactionByDate)
 	router.PUT("/update_transaction/:id", utilities.AuthMiddleware(), handlers.UpdateTransaction)
 	router.DELETE("/delete_transaction/:id", utilities.AuthMiddleware(), handlers.DeleteTransaction)
-
-	//Balance management
-	router.GET("/balance", utilities.AuthMiddleware(), handlers.GetBalance)
-	router.GET("/transactions", utilities.AuthMiddleware(), handlers.GetTransactions)
-	router.GET("/snapshot", utilities.AuthMiddleware(), handlers.TakeBalanceSnapshot)
 
 	//Reports
 	router.GET("/month_summary", utilities.AuthMiddleware(), handlers.GetMonthSummary)

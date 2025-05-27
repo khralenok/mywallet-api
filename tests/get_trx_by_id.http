@@ -1,2 +1,2 @@
-GET http://localhost:8080/transactions/32
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgzMTMzOTIsInVzZXJfaWQiOjE2fQ.qbgfEABhX8sXIX-uFxHF1DGoUP6K_jBDtm-6-jHm02c
+GET http://localhost:8080/transactions/40
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0MDkwNzAsInVzZXJfaWQiOjE2fQ.I4bm0TcSNotNawRAXNEpisAdcNHWxlegMtN4YzJVkVQ

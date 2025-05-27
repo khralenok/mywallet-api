@@ -23,7 +23,9 @@ func GetProfile(context *gin.Context) {
 		return
 	}
 
-	curBalance, err := getCurBalance(rawUser.ID)
+	models.CalcBalance(userID)
+
+	curBalance, err := models.GetBalance(rawUser.ID)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -61,7 +63,7 @@ func CreateUser(context *gin.Context) {
 		return
 	}
 
-	if err := createNewBalance(newUser.ID); err != nil {
+	if err := models.CreateNewBalance(newUser.ID); err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to initialize balance", "message": err})
 		return
 	}

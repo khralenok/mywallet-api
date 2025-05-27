@@ -50,7 +50,7 @@ func GetMonthSummary(context *gin.Context) {
 		income += transaction.Amount
 	}
 
-	balance, err := getCurBalance(userID)
+	balance, err := models.GetBalance(userID)
 
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

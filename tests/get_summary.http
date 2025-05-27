@@ -1,2 +1,2 @@
 GET http://localhost:8080/month_summary?month=2025-05
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0MDI4OTUsInVzZXJfaWQiOjE2fQ.OqDgvvkegVg1zY1w3VEqDAmcesDVvtD6lsZXIW5EVbI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0MDkwNzAsInVzZXJfaWQiOjE2fQ.I4bm0TcSNotNawRAXNEpisAdcNHWxlegMtN4YzJVkVQ
