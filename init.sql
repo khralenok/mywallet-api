@@ -10,6 +10,7 @@ CREATE TABLE transactions (
   user_id INT REFERENCES users(id),
   amount INT NOT NULL,
   trx_type TEXT NOT NULL,
+  trx_category TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
