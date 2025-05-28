@@ -309,6 +309,9 @@ Authorization: [Your JWT]
 ## Installation
 
 1. Clone the repo
+```
+git clone https://github.com/khralenok/mywallet-api.git
+```
 2. Create `.env` file with this template
 ```
 POSTGRES_USER=postgres
@@ -320,7 +323,6 @@ JWT_SECRET=your_jwt_secret
 ```
 3. Run Docker:
 ```
-bash
 docker-compose up -d
 ```
 4. Run app
