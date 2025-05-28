@@ -1,2 +1,2 @@
-DELETE http://localhost:8080/delete_transaction/43
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgzMTc0NDAsInVzZXJfaWQiOjE2fQ.9l8TiUwIU2hz8Qz5cvQMjGRKJ1j3mDo9bOascR_-_YM
+DELETE http://localhost:8080/delete_transaction/51
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0ODcxMTAsInVzZXJfaWQiOjE4fQ.sYQ4R_tFuWV1w-JzJ7Uuzyhpes8s5zKZZVmI5y_7H4I

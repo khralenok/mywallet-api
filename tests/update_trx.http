@@ -1,6 +1,6 @@
-PUT http://localhost:8080/update_transaction/40
+PUT http://localhost:8080/update_transaction/50
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDgzMTc0NDAsInVzZXJfaWQiOjE2fQ.9l8TiUwIU2hz8Qz5cvQMjGRKJ1j3mDo9bOascR_-_YM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0ODcxMTAsInVzZXJfaWQiOjE4fQ.sYQ4R_tFuWV1w-JzJ7Uuzyhpes8s5zKZZVmI5y_7H4I
 
 {
     "amount_usd": 2000.00,
