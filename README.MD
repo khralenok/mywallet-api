@@ -110,7 +110,7 @@ Authorization: [Your JWT]
 }
 ```
 <details>
-<summary>POST /add_expense</summary><br>
+<summary> #### POST /add_expense </summary><br>
 
 
 Add a new expense entry to user account.
