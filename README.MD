@@ -234,7 +234,7 @@ Authorization: [Your JWT]
 </details>
 
 <details>
-<summary><code>PUT /transactions/:id</code></summary><a> - Update an transaction entry.</a><br>
+<summary><code>PUT /transactions/:id</code><a> - Update an transaction entry.</a></summary><br>
 
 
 
@@ -307,3 +307,42 @@ Authorization: [Your JWT]
 </details>
 
 ## Installation
+
+1. Clone the repo
+2. Create `.env` file
+3. Run Docker:
+```
+bash
+docker-compose up --build
+```
+
+4. Test endpoints using Postman or REST Client in VS Code.
+```
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=your_password
+POSTGRES_DB=mywallet
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+JWT_SECRET=your_jwt_secret
+```
+5. The database is auto-initialized using `init.sql` when you run `docker-compose up` for the first time.
+
+6. Test it on localhost:8080
+
+## Future plans
+
+This project was originally created for learning purposes, but I see potential for it to evolve into the foundation for future products.
+
+It can be useful for:
+
+- Developers who want to build wallet frontends without writing the backend logic
+- Integration with Telegram bots or other lightweight frontends
+- Experimenting with analytics, budgeting tools, or financial summaries
+- Further improvements I’m considering:
+
+Adding transaction categories and labels
+
+- Exporting reports to CSV or PDF
+- Multi-currency support
+- Admin panel or user dashboard
+- Thanks for checking it out!
