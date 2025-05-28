@@ -17,8 +17,8 @@
 ## API Endpoints
 
 ### 1. **User Management**
-
-#### POST /signin
+<details>
+<summary><h4>POST /signin</h4></summary><br>
 Create a new user.
 
 **Request**
@@ -40,8 +40,10 @@ Create a new user.
   "created_at": "2025-05-28T02:24:11.64697Z"
 }
 ```
+</details>
 
-#### POST /login
+<details>
+<summary><h4>POST /login</h4></summary><br>
 Authenticate a user and return a JWT Token
 
 **Request**
@@ -61,8 +63,10 @@ Authenticate a user and return a JWT Token
   "token": [Your JWT]
 }
 ```
+</details>
 
-#### GET /profile
+<details>
+<summary><h4>GET /profile</h4></summary><br>
 Fetch user profile.
 
 **Request**
@@ -80,10 +84,12 @@ Authorization: [Your JWT]
   "balance_usd": 1000.15
 }
 ```
+</details>
 
 ### 2. Transaction **Management**
+<details>
+<summary><h4>POST /add_income</h4></summary><br>
 
-#### POST /add_income
 Add a new income entry to user account.
 
 **Request**
@@ -109,9 +115,12 @@ Authorization: [Your JWT]
   "created_at": "2025-05-28T02:32:45.555731Z"
 }
 ```
+</details>
+
+
+
 <details>
 <summary><h4>POST /add_expense</h4></summary><br>
-
 
 Add a new expense entry to user account.
 
@@ -130,7 +139,7 @@ Authorization: [Your JWT]
 ```
 {
   "id": 49,
-  "user_id": 16,
+  "user_id": 1,
   "amount": 2000,
   "trx_type": "expense",
   "trx_category": "Subscriptions",
@@ -140,15 +149,169 @@ Authorization: [Your JWT]
 
 </details>
 
+<details>
+<summary><h4>GET /transactions</h4></summary><br>
 
-- `GET /transactions` — List all user transactions
-- `GET /transactions/:date` — List all user transactions by date
-- `GET /transactions/:id` — View a specific user transaction entry.
-- `PUT /transactions/:id` — Update an transaction entry.
-- `DELETE /transactions/:id` — delete an transaction entry.
+List all user transactions
+
+**Request**
+
+```
+Authorization: [Your JWT]
+```
+
+**Response**
+
+```
+[
+  {
+    "id": 48,
+    "amount_usd": 5000,
+    "trx_category": "Salary",
+    "created_at": "2025-05-28T02:52:36.925028Z"
+  },
+  {
+    "id": 49,
+    "amount_usd": -20,
+    "trx_category": "Subscriptions",
+    "created_at": "2025-05-28T02:53:00.432178Z"
+  }
+]
+```
+
+</details>
+
+<details>
+<summary><h4>GET /transactions/:date</h4></summary><br>
+
+List all user transactions by date
+
+**Request**
+
+```
+GET http://localhost:8080/transactions/date?from_date=2025-05-23&to_date=2025-05-29
+Authorization: [Your JWT]
+```
+
+**Response**
+
+```
+[
+  {
+    "id": 48,
+    "amount_usd": 5000,
+    "trx_category": "Salary",
+    "created_at": "2025-05-28T02:52:36.925028Z"
+  },
+  {
+    "id": 49,
+    "amount_usd": -20,
+    "trx_category": "Subscriptions",
+    "created_at": "2025-05-28T02:53:00.432178Z"
+  }
+]
+```
+
+</details>
+
+<details>
+<summary><h4>GET /transactions/:id</h4></summary><br>
+
+View a specific user transaction entry.
+
+**Request**
+
+```
+GET http://localhost:8080/transactions/51
+Authorization: [Your JWT]
+```
+
+**Response**
+
+```
+{
+  "id": 51,
+  "amount_usd": -20,
+  "trx_category": "Subscriptions",
+  "created_at": "2025-05-28T02:53:00.432178Z"
+}
+```
+
+</details>
+
+<details>
+<summary><h4>PUT /transactions/:id</h4></summary><br>
+
+Update an transaction entry.
+
+**Request**
+
+```
+PUT http://localhost:8080/update_transaction/50
+Authorization: [Your JWT]
+
+{
+    "amount_usd": 2000.00,
+    "trx_category": "Salary"
+}
+```
+
+**Response**
+
+```
+{
+  "message": "Transaction updated successfully"
+}
+```
+
+</details>
+
+<details>
+<summary><h4>DELETE /transactions/:id</h4></summary><br>
+
+Delete an transaction entry.
+
+**Request**
+
+```
+DELETE http://localhost:8080/delete_transaction/51
+Authorization: [Your JWT]
+```
+
+**Response**
+
+```
+{
+  "message": "Transaction deleted successfully"
+}
+```
+
+</details>
 
 ### 3. **Reports**
 
-- `GET /summary?month=2025-04` — Return month income, expenses, and balance.
+<details>
+<summary><h4>GET /summary?month=2025-04</h4></summary><br>
+
+Return month income, expenses, and balance.
+
+**Request**
+
+```
+GET http://localhost:8080/month_summary?month=2025-05
+Authorization: [Your JWT]
+```
+
+**Response**
+
+```
+{
+  "balance_usd": 2000,
+  "expenses_usd": 0,
+  "income_usd": 2000
+}
+```
+
+</details>
 
 ## Installation
