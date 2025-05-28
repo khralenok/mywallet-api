@@ -18,7 +18,7 @@
 
 ### 1. **User Management**
 <details>
-<summary><h4>POST /signin</h4></summary><br>
+<summary><code>POST /signin</code></summary><br>
 Create a new user.
 
 **Request**
@@ -43,7 +43,7 @@ Create a new user.
 </details>
 
 <details>
-<summary><h4>POST /login</h4></summary><br>
+<summary><code>POST /login</code></summary><br>
 Authenticate a user and return a JWT Token
 
 **Request**
@@ -66,7 +66,7 @@ Authenticate a user and return a JWT Token
 </details>
 
 <details>
-<summary><h4>GET /profile</h4></summary><br>
+<summary><code>GET /profile</code></summary><br>
 Fetch user profile.
 
 **Request**
@@ -88,7 +88,7 @@ Authorization: [Your JWT]
 
 ### 2. Transaction **Management**
 <details>
-<summary><h4>POST /add_income</h4></summary><br>
+<summary><code>POST /add_income</code></summary><br>
 
 Add a new income entry to user account.
 
@@ -120,7 +120,7 @@ Authorization: [Your JWT]
 
 
 <details>
-<summary><h4>POST /add_expense</h4></summary><br>
+<summary><code>POST /add_expense</code></summary><br>
 
 Add a new expense entry to user account.
 
@@ -150,7 +150,7 @@ Authorization: [Your JWT]
 </details>
 
 <details>
-<summary><h4>GET /transactions</h4></summary><br>
+<summary><code>GET /transactions</code></summary><br>
 
 List all user transactions
 
@@ -182,7 +182,7 @@ Authorization: [Your JWT]
 </details>
 
 <details>
-<summary><h4>GET /transactions/:date</h4></summary><br>
+<summary><code>GET /transactions/:date</code></summary><br>
 
 List all user transactions by date
 
@@ -215,7 +215,7 @@ Authorization: [Your JWT]
 </details>
 
 <details>
-<summary><h4>GET /transactions/:id</h4></summary><br>
+<summary><code>GET /transactions/:id</code></summary><br>
 
 View a specific user transaction entry.
 
@@ -240,7 +240,7 @@ Authorization: [Your JWT]
 </details>
 
 <details>
-<summary><h4>PUT /transactions/:id</h4></summary><br>
+<summary><code>PUT /transactions/:id</code></summary><br>
 
 Update an transaction entry.
 
@@ -267,7 +267,7 @@ Authorization: [Your JWT]
 </details>
 
 <details>
-<summary><h4>DELETE /transactions/:id</h4></summary><br>
+<summary><code>DELETE /transactions/:id</code></summary><br>
 
 Delete an transaction entry.
 
@@ -291,7 +291,7 @@ Authorization: [Your JWT]
 ### 3. **Reports**
 
 <details>
-<summary><h4>GET /summary?month=2025-04</h4></summary><br>
+<summary><code>GET /summary?month=2025-04</code></summary><br>
 
 Return month income, expenses, and balance.
 
