@@ -1,6 +1,6 @@
 POST http://localhost:8080/add_expense
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0ODcxMTAsInVzZXJfaWQiOjE4fQ.sYQ4R_tFuWV1w-JzJ7Uuzyhpes8s5zKZZVmI5y_7H4I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDg0OTA4NzQsInVzZXJfaWQiOjF9.OEmpktSKHQTikcj-BPMCaRgM7UIRWbGWBViiusX_MMA
 
 {
     "amount_usd": 20,

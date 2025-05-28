@@ -309,14 +309,7 @@ Authorization: [Your JWT]
 ## Installation
 
 1. Clone the repo
-2. Create `.env` file
-3. Run Docker:
-```
-bash
-docker-compose up --build
-```
-
-4. Test endpoints using Postman or REST Client in VS Code.
+2. Create `.env` file with this template
 ```
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=your_password
@@ -325,9 +318,19 @@ POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 JWT_SECRET=your_jwt_secret
 ```
-5. The database is auto-initialized using `init.sql` when you run `docker-compose up` for the first time.
+3. Run Docker:
+```
+bash
+docker-compose up -d
+```
+4. Run app
+```
+go run .
+```
 
-6. Test it on localhost:8080
+5. Use tests from test folders with REST Client for VS Code. 
+
+6. Example path to follow: Signin -> Login -> Add income -> See profile -> Add expense -> See Transactions -> See summary 
 
 ## Future plans
 
